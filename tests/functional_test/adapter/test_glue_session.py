@@ -54,7 +54,7 @@ def __test_get_columns_in_relation(session: GlueConnection):
 
 def __test_query_with_comments(session):
     cursor: GlueCursor = session.cursor()
-    cursor.execute('''show databases''')
+    cursor.execute("""show databases""")
     for r in cursor:
         print(r)
 
@@ -64,14 +64,14 @@ def __test_query_with_comments(session):
 def test_create_database(session, region):
     client = boto3.client("glue", region_name=region)
     schema = "testdb111222333"
-    table_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
+    table_suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=4))
     table_name = f"test123_{table_suffix}"
     try:
         response = client.create_database(
             DatabaseInput={
                 "Name": f"{schema}",
-                'Description': 'test dbt database',
-                'LocationUri': s3bucket
+                "Description": "test dbt database",
+                "LocationUri": s3bucket,
             }
         )
 
@@ -107,7 +107,7 @@ def test_create_database(session, region):
                         "Table": {
                             "DatabaseName": schema,
                             "TableWildcard": {},
-                            "CatalogId": account
+                            "CatalogId": account,
                         }
                     },
                     "Permissions": ["SELECT"],
@@ -120,20 +120,25 @@ def test_create_database(session, region):
         print("already exists")
 
     cursor: GlueCursor = session.cursor()
-    response = cursor.execute(f"""
+    response = cursor.execute(
+        f"""
     create table {schema}.{table_name}(a string)
      USING CSV
      LOCATION '{s3bucket}/{table_name}/'
-    """)
+    """
+    )
     print(response)
 
-    response = cursor.execute(f"""
+    response = cursor.execute(
+        f"""
         describe table {schema}.{table_name}
-        """)
+        """
+    )
     print(response)
 
-    response = cursor.execute(f"""
+    response = cursor.execute(
+        f"""
     drop table {schema}.{table_name}
-    """)
+    """
+    )
     print(response)
-

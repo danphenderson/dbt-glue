@@ -12,5 +12,5 @@ class GlueColumn(Column):
     TYPE_LABELS: ClassVar[Dict[str, str]] = {
         "STRING": "STRING",
         "TEXT": "STRING",
-        "VARCHAR": "STRING"
+        "VARCHAR": "STRING",
     }

@@ -4,10 +4,7 @@ from typing import Any, List, Dict, Optional
 from dbt.adapters.glue.credentials import GlueCredentials
 from dbt.adapters.sql import SQLConnectionManager
 from dbt.contracts.connection import AdapterResponse
-from dbt.exceptions import (
-    FailedToConnectError,
-    DbtRuntimeError
-)
+from dbt.exceptions import FailedToConnectError, DbtRuntimeError
 import dbt
 from dbt.adapters.glue.gluedbapi import GlueConnection, GlueCursor
 from dbt.events import AdapterLogger
@@ -47,39 +44,39 @@ class GlueConnectionManager(SQLConnectionManager):
 
         credentials: GlueCredentials = connection.credentials
         try:
-            connection_args = {
-                "credentials": credentials
-            }
+            connection_args = {"credentials": credentials}
 
             if credentials.enable_session_per_model:
                 key = get_node_info().get("unique_id", "no-node")
-                connection_args['session_id_suffix'] = key
+                connection_args["session_id_suffix"] = key
 
                 session_config_overrides = {}
                 for session_config in credentials._connection_keys():
                     if get_node_info().get("meta", {}).get(session_config):
-                        session_config_overrides[session_config] = get_node_info().get("meta", {}).get(session_config)
-                connection_args['session_config_overrides'] = session_config_overrides
+                        session_config_overrides[session_config] = (
+                            get_node_info().get("meta", {}).get(session_config)
+                        )
+                connection_args["session_config_overrides"] = session_config_overrides
 
             else:
                 key = cls.get_thread_identifier()
 
             if not cls.GLUE_CONNECTIONS_BY_KEY.get(key):
                 logger.debug(f"opening a new glue connection for thread : {key}")
-                cls.GLUE_CONNECTIONS_BY_KEY[key]: GlueConnection = GlueConnection(**connection_args)
+                cls.GLUE_CONNECTIONS_BY_KEY[key]: GlueConnection = GlueConnection(
+                    **connection_args
+                )
             connection.state = GlueSessionState.OPEN
             connection.handle = cls.GLUE_CONNECTIONS_BY_KEY[key]
             return connection
         except Exception as e:
-            logger.error(
-                f"Got an error when attempting to open a GlueSession : {e}"
-            )
+            logger.error(f"Got an error when attempting to open a GlueSession : {e}")
             connection.handle = None
             connection.state = GlueSessionState.FAIL
             raise FailedToConnectError(f"Got an error when attempting to open a GlueSessions: {e}")
 
     def cancel(self, connection):
-        """ cancel ongoing queries """
+        """cancel ongoing queries"""
         connection.handle.cancel()
 
     @contextmanager
@@ -118,10 +115,7 @@ class GlueConnectionManager(SQLConnectionManager):
             else:
                 rows = cursor.fetchall()
             data = cls.process_results(column_names, rows)
-        return dbt.clients.agate_helper.table_from_data_flat(
-            data,
-            column_names
-        )
+        return dbt.clients.agate_helper.table_from_data_flat(data, column_names)
 
     # No transactions on Spark....
     def add_begin_query(self, *args, **kwargs):

@@ -21,39 +21,39 @@ def get_session_waiter(client, waiter_name="SessionReady", delay=3, timeout=300)
                         "matcher": "path",
                         "expected": "READY",
                         "argument": "Session.Status",
-                        "state": "success"
+                        "state": "success",
                     },
                     {
                         "matcher": "path",
                         "expected": "STOPPED",
                         "argument": "Session.Status",
-                        "state": "failure"
+                        "state": "failure",
                     },
                     {
                         "matcher": "path",
                         "expected": "TIMEOUT",
                         "argument": "Session.Status",
-                        "state": "failure"
+                        "state": "failure",
                     },
                     {
                         "matcher": "path",
                         "expected": "FAILED",
                         "argument": "Session.Status",
-                        "state": "failure"
-                    }
-                ]
+                        "state": "failure",
+                    },
+                ],
             }
-        }
+        },
     }
     return create_waiter_with_client(waiter_name, WaiterModel(waiter_config), client)
 
 
 def get_pandas_dataframe_from_result_file(bucket, key):
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client("s3")
     logger.debug(f"Downloading s3://{bucket}/{key}")
 
-    s3_client.download_file(bucket, key, 'result.feather')
-    pdf = feather.read_feather('result.feather')
+    s3_client.download_file(bucket, key, "result.feather")
+    pdf = feather.read_feather("result.feather")
 
     try:
         s3_client.delete_object(bucket, key)

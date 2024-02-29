@@ -17,7 +17,7 @@
   {%- if expire_snapshots == true -%}
   	{%- set result = adapter.iceberg_expire_snapshots(default_catalog, target_relation) -%}
   {%- endif -%}
-  
+
   {% if lf_tags_config is not none %}
     {{ adapter.add_lf_tags(target_relation, lf_tags_config) }}
   {% endif %}

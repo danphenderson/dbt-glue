@@ -1,10 +1,10 @@
 {% materialization incremental, adapter='glue' -%}
-  
+
   {#-- Validate early so we don't run SQL if the file_format + strategy combo is invalid --#}
   {%- set raw_file_format = config.get('file_format', default='parquet') -%}
   {%- set raw_strategy = config.get('incremental_strategy', default='insert_overwrite') -%}
-  
-  {% if raw_file_format == 'iceberg' %} 
+
+  {% if raw_file_format == 'iceberg' %}
     {%- set file_format = 'iceberg' -%}
     {%- set strategy = raw_strategy -%}
   {% else %}
@@ -90,7 +90,7 @@
   {% if lf_grants is not none %}
     {{ adapter.apply_lf_grants(target_relation, lf_grants) }}
   {% endif %}
-  
+
   {% if is_incremental == 'True' %}
     {{ glue__drop_relation(tmp_relation) }}
     {% if file_format == 'delta' %}

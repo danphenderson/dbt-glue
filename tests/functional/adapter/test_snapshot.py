@@ -25,11 +25,7 @@ class TestSnapshotCheckColsGlue(BaseSnapshotCheckCols):
                 "+updated_at": "current_timestamp()",
                 "quote_columns": False,
             },
-            "quoting": {
-                "database": False,
-                "schema": False,
-                "identifier": False
-            },
+            "quoting": {"database": False, "schema": False, "identifier": False},
         }
 
     def test_snapshot_check_cols(self, project):
@@ -77,11 +73,7 @@ class TestSnapshotTimestampGlue(BaseSnapshotTimestamp):
                 "+updated_at": "current_timestamp()",
                 "quote_columns": False,
             },
-            "quoting": {
-                "database": False,
-                "schema": False,
-                "identifier": False
-            },
+            "quoting": {"database": False, "schema": False, "identifier": False},
         }
 
     def test_snapshot_timestamp(self, project):

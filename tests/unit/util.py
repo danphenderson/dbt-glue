@@ -10,11 +10,11 @@ class MockAWSService:
         glue.create_database(DatabaseInput={"Name": name}, CatalogId=catalog_id)
 
     def create_table(
-            self,
-            table_name: str,
-            database_name: str = DATABASE_NAME,
-            catalog_id: str = CATALOG_ID,
-            location: Optional[str] = "auto",
+        self,
+        table_name: str,
+        database_name: str = DATABASE_NAME,
+        catalog_id: str = CATALOG_ID,
+        location: Optional[str] = "auto",
     ):
         glue = boto3.client("glue", region_name=AWS_REGION)
         if location == "auto":
@@ -54,10 +54,8 @@ class MockAWSService:
         )
 
     def create_iceberg_table(
-            self,
-            table_name: str,
-            database_name: str = DATABASE_NAME,
-            catalog_id: str = CATALOG_ID):
+        self, table_name: str, database_name: str = DATABASE_NAME, catalog_id: str = CATALOG_ID
+    ):
         glue = boto3.client("glue", region_name=AWS_REGION)
         glue.create_table(
             CatalogId=catalog_id,

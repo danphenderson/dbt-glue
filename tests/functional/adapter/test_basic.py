@@ -1,8 +1,12 @@
 import os
 import pytest
-from dbt.tests.adapter.basic.files import (base_ephemeral_sql, base_table_sql,
-                                           base_view_sql, ephemeral_table_sql,
-                                           ephemeral_view_sql)
+from dbt.tests.adapter.basic.files import (
+    base_ephemeral_sql,
+    base_table_sql,
+    base_view_sql,
+    ephemeral_table_sql,
+    ephemeral_view_sql,
+)
 from dbt.tests.adapter.basic.test_adapter_methods import BaseAdapterMethod
 from dbt.tests.adapter.basic.test_base import BaseSimpleMaterializations
 from dbt.tests.adapter.basic.test_empty import BaseEmpty
@@ -13,8 +17,13 @@ from dbt.tests.adapter.basic.test_singular_tests import BaseSingularTests
 from dbt.tests.adapter.basic.test_singular_tests_ephemeral import BaseSingularTestsEphemeral
 from dbt.tests.adapter.basic.test_table_materialization import BaseTableMaterialization
 from dbt.tests.adapter.basic.test_validate_connection import BaseValidateConnection
-from dbt.tests.util import (check_relations_equal, check_result_nodes_by_name,
-                            get_manifest, relation_from_name, run_dbt)
+from dbt.tests.util import (
+    check_relations_equal,
+    check_result_nodes_by_name,
+    get_manifest,
+    relation_from_name,
+    run_dbt,
+)
 
 
 # override schema_base_yml to set missing database
@@ -57,7 +66,7 @@ class TestSimpleMaterializationsGlue(BaseSimpleMaterializations):
             "name": "base",
             "models": {
                 "+incremental_strategy": "append",
-            }
+            },
         }
 
     @pytest.fixture(scope="class")
@@ -219,4 +228,3 @@ class TestTableMatGlue(BaseTableMaterialization):
 
 class TestValidateConnectionGlue(BaseValidateConnection):
     pass
-

@@ -39,7 +39,7 @@
   {% do persist_docs(target_relation, model) %}
 
   {% do persist_constraints(target_relation, model) %}
-  
+
   {% if lf_tags_config is not none %}
     {{ adapter.add_lf_tags(target_relation, lf_tags_config) }}
   {% endif %}

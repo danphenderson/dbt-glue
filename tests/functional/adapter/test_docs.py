@@ -19,6 +19,7 @@ class TestDocsGenerate(BaseDocsGenerate):
         view_summary_stats = None
 
         if case is None:
+
             def case(x):
                 return x
 
@@ -93,7 +94,7 @@ class TestDocsGenerate(BaseDocsGenerate):
                     "columns": seed_columns,
                 },
             },
-            "sources": {}
+            "sources": {},
         }
 
     pass
@@ -116,6 +117,7 @@ class TestDocsGenReferencesGlue(BaseDocsGenReferences):
         view_summary_stats = None
 
         if case is None:
+
             def case(x):
                 return x
 
@@ -218,7 +220,7 @@ class TestDocsGenReferencesGlue(BaseDocsGenReferences):
                     "columns": summary_columns,
                 },
             },
-            "sources": {}
+            "sources": {},
         }
 
         pass

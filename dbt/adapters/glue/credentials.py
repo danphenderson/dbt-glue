@@ -6,7 +6,8 @@ import dbt.exceptions
 
 @dataclass
 class GlueCredentials(Credentials):
-    """ Required connections for a Glue connection"""
+    """Required connections for a Glue connection"""
+
     role_arn: Optional[str] = None  # type: ignore
     region: Optional[str] = None  # type: ignore
     workers: Optional[int] = None  # type: ignore
@@ -37,7 +38,6 @@ class GlueCredentials(Credentials):
     enable_session_per_model: Optional[bool] = False
     use_arrow: Optional[bool] = False
 
-
     @property
     def type(self):
         return "glue"
@@ -65,34 +65,34 @@ class GlueCredentials(Credentials):
         self.database = None
 
     def _connection_keys(self):
-        """ Keys to show when debugging """
+        """Keys to show when debugging"""
         return [
-            'role_arn',
-            'region',
-            'workers',
-            'worker_type',
-            'session_provisioning_timeout_in_seconds',
-            'schema',
-            'location',
-            'extra_jars',
-            'idle_timeout',
-            'query_timeout_in_minutes',
-            'glue_version',
-            'security_configuration',
-            'connections',
-            'conf',
-            'extra_py_files',
-            'delta_athena_prefix',
-            'tags',
-            'seed_format',
-            'seed_mode',
-            'default_arguments',
-            'iceberg_glue_commit_lock_table',
-            'use_interactive_session_role_for_api_calls',
-            'lf_tags',
-            'glue_session_id',
-            'glue_session_reuse',
-            'datalake_formats',
-            'enable_session_per_model',
-            'use_arrow'
+            "role_arn",
+            "region",
+            "workers",
+            "worker_type",
+            "session_provisioning_timeout_in_seconds",
+            "schema",
+            "location",
+            "extra_jars",
+            "idle_timeout",
+            "query_timeout_in_minutes",
+            "glue_version",
+            "security_configuration",
+            "connections",
+            "conf",
+            "extra_py_files",
+            "delta_athena_prefix",
+            "tags",
+            "seed_format",
+            "seed_mode",
+            "default_arguments",
+            "iceberg_glue_commit_lock_table",
+            "use_interactive_session_role_for_api_calls",
+            "lf_tags",
+            "glue_session_id",
+            "glue_session_reuse",
+            "datalake_formats",
+            "enable_session_per_model",
+            "use_arrow",
         ]

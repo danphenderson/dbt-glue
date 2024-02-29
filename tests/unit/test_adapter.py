@@ -40,7 +40,7 @@ class TestGlueAdapter(unittest.TestCase):
                     "worker_type": "G.1X",
                     "schema": "dbt_unit_test_01",
                     "database": "dbt_unit_test_01",
-                    "use_interactive_session_role_for_api_calls": False
+                    "use_interactive_session_role_for_api_calls": False,
                 }
             },
             "target": "test",
@@ -65,7 +65,6 @@ class TestGlueAdapter(unittest.TestCase):
             self.assertEqual(connection.credentials.schema, "dbt_unit_test_01")
             self.assertIsNotNone(connection.handle)
             self.assertIsInstance(glueSession.client, BaseClient)
-
 
     @mock_aws
     def test_get_table_type(self):

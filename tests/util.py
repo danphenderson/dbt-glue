@@ -110,7 +110,9 @@ def get_s3_location():
 
 
 def get_role_arn():
-    return os.environ.get("DBT_GLUE_ROLE_ARN", f"arn:aws:iam::{get_account_id()}:role/GlueInteractiveSessionRole")
+    return os.environ.get(
+        "DBT_GLUE_ROLE_ARN", f"arn:aws:iam::{get_account_id()}:role/GlueInteractiveSessionRole"
+    )
 
 
 def cleanup_s3_location(path, region):
@@ -141,9 +143,11 @@ class S3Url(object):
         bucket = self.bucket
         prefix = self.key
 
-        for response in client.get_paginator('list_objects_v2').paginate(Bucket=bucket, Prefix=prefix):
-            if 'Contents' not in response:
+        for response in client.get_paginator("list_objects_v2").paginate(
+            Bucket=bucket, Prefix=prefix
+        ):
+            if "Contents" not in response:
                 continue
-            for content in response['Contents']:
-                print("Deleting: s3://" + bucket + "/" + content['Key'])
-                client.delete_object(Bucket=bucket, Key=content['Key'])
+            for content in response["Contents"]:
+                print("Deleting: s3://" + bucket + "/" + content["Key"])
+                client.delete_object(Bucket=bucket, Key=content["Key"])
